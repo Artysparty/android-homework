@@ -17,13 +17,11 @@ class CharacterAdapter(private val baseContext: Context, private val characterLi
         var aliases: TextView = itemView.findViewById(R.id.aliases)
         var playedBy: TextView = itemView.findViewById(R.id.playedBy)
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_layout, parent, false)
         return CharacterHolder(itemView)
     }
-
     override fun onBindViewHolder(holder: CharacterHolder, position: Int) {
         holder.name.text = characterList.get(position).name
         holder.culture.text = characterList.get(position).culture
@@ -38,8 +36,6 @@ class CharacterAdapter(private val baseContext: Context, private val characterLi
         println(characterList.get(position).titles)
         println(characterList.get(position).aliases)
         println(characterList.get(position).playedBy)
-
     }
-
     override fun getItemCount() = characterList.size
 }

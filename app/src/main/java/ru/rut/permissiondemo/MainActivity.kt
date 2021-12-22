@@ -23,8 +23,6 @@ import ru.rut.permissiondemo.util.showSnackbar
  const val PERMISSION_REQUEST = 1
 
  class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
-
-
      private lateinit var retService: RetrofitService
      lateinit var characterAdapter: CharacterAdapter
      lateinit var layouManager: LinearLayoutManager
@@ -39,29 +37,29 @@ import ru.rut.permissiondemo.util.showSnackbar
         layouManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         characterRecyclerView.layoutManager = layouManager
 
-        requestData(21)
+        requestData(22)
     }
 
-     private fun requestData(_pageNumber: Int) {
-         var pageNumber = _pageNumber
+     private fun requestData(_page: Int) {
+         var page = _page
          val characters: MutableList<Character> = mutableListOf()
          for ( i in 1..3 ) {
-             retService.getCharactersList(pageNumber, 50)
+             retService.getCharactersList(page, 50)
                  .enqueue(object : Callback<MutableList<Character>> {
                      override fun onResponse(
                          call: Call<MutableList<Character>>,
                          response: Response<MutableList<Character>>
                      ) {
                          characters.addAll(response.body()!!.toList())
-                         pageNumber++
+
                          characterAdapter =
                              CharacterAdapter(this@MainActivity, characters)
                          characterRecyclerView.adapter = characterAdapter
                          characterAdapter.notifyDataSetChanged()
                      }
-
                      override fun onFailure(call: Call<MutableList<Character>>, t: Throwable) {}
                  })
+             page++
          }
      }
 }
